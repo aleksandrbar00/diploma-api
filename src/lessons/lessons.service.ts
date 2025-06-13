@@ -2,7 +2,6 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
-  OnModuleInit,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -16,7 +15,7 @@ import {
 } from './dto/lesson-response.dto';
 
 @Injectable()
-export class LessonsService implements OnModuleInit {
+export class LessonsService {
   private readonly CHECK_INTERVAL = 10000; // 10 seconds
   private timer: NodeJS.Timeout;
 
@@ -28,17 +27,6 @@ export class LessonsService implements OnModuleInit {
     @InjectRepository(QuestionAnswer)
     private readonly answerRepository: Repository<QuestionAnswer>,
   ) {}
-
-  onModuleInit() {
-    // Start the timer when the module initializes
-    this.startTimer();
-  }
-
-  private startTimer() {
-    this.timer = setInterval(() => {
-      this.checkAndFinishExpiredLessons();
-    }, this.CHECK_INTERVAL);
-  }
 
   private calculateTimeRemaining(lessonSession: LessonSession): number {
     const timeElapsed = Math.floor(
