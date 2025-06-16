@@ -17,11 +17,11 @@ import { LessonSession } from './lessons/lesson-session.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'root',
-      database: 'diploma',
+      host: process.env.DATABASE_HOST ?? 'localhost',
+      port: parseInt(process.env.DATABASE_PORT ?? '5433'),
+      username: process.env.DATABASE_USERNAME ?? 'postgres',
+      password: process.env.DATABASE_PASSWORD ?? 'root',
+      database: process.env.DATABASE_NAME ?? 'diploma_db',
       synchronize: true, // Disable in production!
       entities: [
         User,
