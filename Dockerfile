@@ -18,9 +18,12 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --only=production
+RUN npm install
 
+# Copy both dist and src directories
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/tsconfig*.json ./
 
 EXPOSE 3000
 
