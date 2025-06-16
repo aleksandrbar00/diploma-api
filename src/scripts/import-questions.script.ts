@@ -12,8 +12,8 @@ import { Question } from '../questions/question.entity';
 import { QuestionAnswer } from '../questions/question-answer.entity';
 import { QuestionCategory } from '../questions/category.entity';
 import { QuestionSubcategory } from '../questions/subcategory.entity';
-import { User } from 'src/users/user.entity';
-import { LessonSession } from 'src/lessons/lesson-session.entity';
+import { User } from '../users/user.entity';
+import { LessonSession } from '../lessons/lesson-session.entity';
 
 @Module({
   imports: [
