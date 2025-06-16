@@ -12,23 +12,28 @@ import { Question } from '../questions/question.entity';
 import { QuestionAnswer } from '../questions/question-answer.entity';
 import { QuestionCategory } from '../questions/category.entity';
 import { QuestionSubcategory } from '../questions/subcategory.entity';
+import { User } from 'src/users/user.entity';
+import { LessonSession } from 'src/lessons/lesson-session.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'root',
-      database: 'diploma',
+      host: process.env.DATABASE_HOST ?? 'localhost',
+      port: parseInt(process.env.DATABASE_PORT ?? '5433'),
+      username: process.env.DATABASE_USERNAME ?? 'postgres',
+      password: process.env.DATABASE_PASSWORD ?? 'root',
+      database: process.env.DATABASE_NAME ?? 'diploma_db',
+      synchronize: true, // Disable in production!
       entities: [
-        Question,
-        QuestionAnswer,
+        User,
         QuestionCategory,
         QuestionSubcategory,
+        Question,
+        QuestionAnswer,
+        LessonSession,
       ],
-      synchronize: true,
+      logging: true,
     }),
     TypeOrmModule.forFeature([
       Question,
